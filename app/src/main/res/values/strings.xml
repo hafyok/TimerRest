@@ -3,5 +3,10 @@
     <string name="start_btn">START</string>
     <string name="stop_btn">STOP</string>
 
+    <string name="statistics">Статистика</string>
+    <string name="shop">Магазин</string>
+    <string name="achieve">Достижения</string>
+    <string name="settings">Настройки</string>
+
     <string name="zero_zero">0:00</string>
 </resources>

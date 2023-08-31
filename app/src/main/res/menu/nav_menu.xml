@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item android:title="Category 1">
+        <menu>
+            <item android:title="@string/statistics" android:id="@+id/statistics" android:icon="@drawable/timer_stock" />
+            <item android:title="@string/shop" android:id="@+id/shop" android:icon="@drawable/timer_stock" />
+            <item android:title="@string/achieve" android:id="@+id/achieve" android:icon="@drawable/timer_stock" />
+            <item android:title="@string/settings" android:id="@+id/settings" android:icon="@drawable/timer_stock" />
+        </menu>
+    </item>
+
+    <item android:title="Category 2">
+        <menu>
+            <item android:title="@string/statistics" android:id="@+id/item5" android:icon="@drawable/timer_stock" />
+            <item android:title="@string/shop" android:id="@+id/item6" android:icon="@drawable/timer_stock" />
+            <item android:title="@string/achieve" android:id="@+id/item7" android:icon="@drawable/timer_stock" />
+            <item android:title="@string/settings" android:id="@+id/item8" android:icon="@drawable/timer_stock" />
+        </menu>
+    </item>
+
+</menu>
