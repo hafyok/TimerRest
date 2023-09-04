@@ -3,12 +3,14 @@ package com.example.timerrest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.core.view.GravityCompat
+import com.example.timerrest.Model.Objects.DatabaseHelper
+import com.example.timerrest.Model.Objects.NetworkUtils
 import com.example.timerrest.ViewModel.TimerViewModel
 import com.example.timerrest.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 
 class TimerActivity : AppCompatActivity() {
@@ -16,12 +18,31 @@ class TimerActivity : AppCompatActivity() {
     private var timer: CountDownTimer? = null
     lateinit var viewModel: TimerViewModel
 
+    //Activity -> Component -> Module -> Presenter (Dagger)
+    lateinit var databaseHelper: DatabaseHelper
+    lateinit var networkUtils: NetworkUtils
+    /*@Inject lateinit var databaseHelper: DatabaseHelper
+    @Inject lateinit var networkUtils: NetworkUtils*/
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        val appComponent = (application as App).appComponent
 
+        databaseHelper = appComponent.getDatabaseHelper()
+        networkUtils = appComponent.getNetworkUtils()
 
+        //(application as App).appComponent.injectMainActivity(this)
+
+        initTimer(binding)
+
+        menuItem(binding)
+    }
+
+    private fun initTimer(binding: ActivityMainBinding){
         val numberPicker: NumberPicker  = binding.numberPicker
         numberPicker.minValue = 0
         numberPicker.maxValue = 33 // Количество возможных значений
@@ -34,14 +55,10 @@ class TimerActivity : AppCompatActivity() {
             binding.timerMinutes.text = numberPicker.displayedValues[newVal] + ":00"
         }
 
-        setContentView(binding.root)
         binding.bStart.setOnClickListener {
             val selectedMinutes = numberPicker.displayedValues[numberPicker.value].toLong() // Выбранное количество минут
             startCountDownTimer(selectedMinutes * 60 * 1000)
         }
-
-        menuChange(binding)
-
     }
 
     private fun startCountDownTimer(timerMillis: Long){
@@ -58,7 +75,7 @@ class TimerActivity : AppCompatActivity() {
         }.start()
     }
 
-    private fun menuChange(binding: ActivityMainBinding){
+    private fun menuItem(binding: ActivityMainBinding){
         binding.apply {
             mainNavigationMenu.setNavigationItemSelectedListener {
                 when(it.itemId){
@@ -72,4 +89,5 @@ class TimerActivity : AppCompatActivity() {
             }
         }
     }
+
 }
