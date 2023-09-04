@@ -7,12 +7,15 @@ import android.util.Log
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.core.view.GravityCompat
+import com.example.timerrest.ViewModel.TimerViewModel
 import com.example.timerrest.databinding.ActivityMainBinding
 
 
 class TimerActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private var timer: CountDownTimer? = null
+    lateinit var viewModel: TimerViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,18 +40,7 @@ class TimerActivity : AppCompatActivity() {
             startCountDownTimer(selectedMinutes * 60 * 1000)
         }
 
-        binding.apply {
-            mainNavigationMenu.setNavigationItemSelectedListener {
-                when(it.itemId){
-                    R.id.statistics -> Toast.makeText(this@TimerActivity, "Статистика", Toast.LENGTH_SHORT).show()
-                    R.id.shop -> Toast.makeText(this@TimerActivity, "Магазин", Toast.LENGTH_SHORT).show()
-                    R.id.achieve -> Toast.makeText(this@TimerActivity, "Достижения", Toast.LENGTH_SHORT).show()
-                    R.id.settings -> Toast.makeText(this@TimerActivity, "Настройки", Toast.LENGTH_SHORT).show()
-                }
-                mainDrawer.closeDrawer(GravityCompat.START)
-                true
-            }
-        }
+        menuChange(binding)
 
     }
 
@@ -64,5 +56,20 @@ class TimerActivity : AppCompatActivity() {
             }
 
         }.start()
+    }
+
+    private fun menuChange(binding: ActivityMainBinding){
+        binding.apply {
+            mainNavigationMenu.setNavigationItemSelectedListener {
+                when(it.itemId){
+                    R.id.statistics -> Toast.makeText(this@TimerActivity, "Статистика", Toast.LENGTH_SHORT).show()
+                    R.id.shop -> Toast.makeText(this@TimerActivity, "Магазин", Toast.LENGTH_SHORT).show()
+                    R.id.achieve -> Toast.makeText(this@TimerActivity, "Достижения", Toast.LENGTH_SHORT).show()
+                    R.id.settings -> Toast.makeText(this@TimerActivity, "Настройки", Toast.LENGTH_SHORT).show()
+                }
+                mainDrawer.closeDrawer(GravityCompat.START)
+                true
+            }
+        }
     }
 }
